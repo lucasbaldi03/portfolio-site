@@ -237,7 +237,7 @@ export default function Personal() {
               }}
             >
               <div
-                className="w-28 h-28 md:w-32 md:h-32 rounded-xl border flex items-center justify-center flex-shrink-0 overflow-hidden relative"
+                className="w-24 h-24 md:w-32 md:h-32 rounded-xl border flex items-center justify-center flex-shrink-0 overflow-hidden relative"
                 style={{
                   background: colorMap.sky.bg,
                   borderColor: colorMap.sky.border,

@@ -43,9 +43,13 @@ function Instagram({ size = 16 }: { size?: number }) {
 
 export default function Footer() {
   return (
-    <footer id="contato" className="relative py-24 md:py-32">
+    <footer id="contato" className="relative py-20 md:py-32">
       <div className="max-w-6xl mx-auto px-5 md:px-8">
-        <GlassCard padding="lg" strong className="relative overflow-hidden">
+        <GlassCard
+          padding="lg"
+          strong
+          className="relative overflow-hidden !p-6 md:!p-10"
+        >
           <div
             className="absolute -top-32 -right-32 w-96 h-96 rounded-full pointer-events-none"
             style={{
@@ -53,12 +57,12 @@ export default function Footer() {
                 "radial-gradient(circle, rgba(168,255,92,0.35) 0%, transparent 60%)",
             }}
           />
-          <div className="relative grid md:grid-cols-2 gap-12 items-center">
+          <div className="relative grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             <div>
               <div className="text-[11px] uppercase tracking-widest text-accent">
                 Vamos conversar
               </div>
-              <h2 className="mt-3 text-4xl md:text-5xl editorial tracking-tight leading-[1] text-white">
+              <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl editorial tracking-tight leading-[1.05] text-white">
                 A ideia é sua,{" "}
                 <span className="font-serif-italic text-accent">
                   o plano é meu.
@@ -135,22 +139,24 @@ function ContactRow({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="glass-dark rounded-xl p-4 flex items-center justify-between gap-3 hover:border-accent/40 transition-colors group"
+      className="glass-dark rounded-xl p-3 md:p-4 flex items-center justify-between gap-3 hover:border-accent/40 transition-colors group"
     >
-      <div className="flex items-center gap-3">
-        <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-accent">
+      <div className="flex items-center gap-3 min-w-0 flex-1">
+        <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-accent flex-shrink-0">
           {icon}
         </div>
-        <div>
+        <div className="min-w-0 flex-1">
           <div className="text-[10px] uppercase tracking-widest text-white/40">
             {label}
           </div>
-          <div className="text-sm text-white/90">{value}</div>
+          <div className="text-xs md:text-sm text-white/90 truncate">
+            {value}
+          </div>
         </div>
       </div>
       <ArrowUpRight
         size={16}
-        className="text-white/40 group-hover:text-accent group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all"
+        className="text-white/40 group-hover:text-accent group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all flex-shrink-0"
       />
     </a>
   );
