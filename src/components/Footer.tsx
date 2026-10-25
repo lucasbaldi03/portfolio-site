@@ -1,163 +1,133 @@
 "use client";
 
-import { Mail, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { profile } from "@/lib/content";
-import GlassCard from "./ui/GlassCard";
-import GlassButton from "./ui/GlassButton";
+import BigName from "./BigName";
+import LocalTime from "./LocalTime";
 
-function Linkedin({ size = 16 }: { size?: number }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      aria-hidden="true"
-    >
-      <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.95v5.66H9.37V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.37-1.85 3.6 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.44a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.11 20.45H3.56V9H7.1v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45C23.2 24 24 23.23 24 22.28V1.72C24 .77 23.2 0 22.22 0z" />
-    </svg>
-  );
-}
+// pessoal sai pelo WhatsApp; agência pelo email da BePlus
+const contacts = [
+  {
+    kind: "Pessoal · freela",
+    note: "Projetos diretos comigo, consultoria e conversa.",
+    label: profile.phone,
+    href: profile.whatsapp,
+    whatsapp: true,
+  },
+  {
+    kind: "Agência · BePlus",
+    note: "Cocriação com a agência: campanha, IA, ativação e produção.",
+    label: profile.emailWork,
+    href: `mailto:${profile.emailWork}`,
+    whatsapp: false,
+  },
+];
 
-function Instagram({ size = 16 }: { size?: number }) {
+export function WhatsAppIcon({ className }: { className?: string }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
+      <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.43 9.43 0 0 1-4.81-1.32l-.35-.2-3.57.93.95-3.48-.22-.36a9.4 9.4 0 0 1-1.44-5.02c0-5.2 4.24-9.44 9.46-9.44a9.4 9.4 0 0 1 6.68 2.77 9.38 9.38 0 0 1 2.77 6.68c0 5.21-4.24 9.44-9.46 9.44zm8.05-17.5A11.32 11.32 0 0 0 12.04.67C5.77.67.66 5.77.66 12.04c0 2 .52 3.96 1.52 5.69L.57 23.33l5.73-1.5a11.36 11.36 0 0 0 5.73 1.46h.01c6.27 0 11.38-5.1 11.38-11.37 0-3.04-1.18-5.9-3.33-8.04z" />
     </svg>
   );
 }
 
 export default function Footer() {
   return (
-    <footer id="contato" className="relative py-20 md:py-32">
-      <div className="max-w-6xl mx-auto px-5 md:px-8">
-        <GlassCard
-          padding="lg"
-          strong
-          className="relative overflow-hidden !p-6 md:!p-10"
-        >
-          <div
-            className="absolute -top-32 -right-32 w-96 h-96 rounded-full pointer-events-none"
-            style={{
-              background:
-                "radial-gradient(circle, rgba(168,255,92,0.35) 0%, transparent 60%)",
-            }}
-          />
-          <div className="relative grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-            <div>
-              <div className="text-[11px] uppercase tracking-widest text-accent">
-                Vamos conversar
-              </div>
-              <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl editorial tracking-tight leading-[1.05] text-white">
-                A ideia é sua,{" "}
-                <span className="font-serif-italic text-accent">
-                  o plano é meu.
-                </span>
-              </h2>
-              <p className="mt-5 text-white/70 max-w-md">
-                Aberto pra novos projetos, colaborações e conversas — de
-                estratégia e direção criativa a lançamentos e ativações de
-                marca.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <a href={`mailto:${profile.email}`}>
-                  <GlassButton variant="primary" size="lg">
-                    <Mail size={16} /> Envie um e-mail
-                  </GlassButton>
-                </a>
-                <a
-                  href={profile.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <GlassButton variant="outline" size="lg">
-                    <Linkedin size={16} /> LinkedIn
-                  </GlassButton>
-                </a>
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              <ContactRow
-                icon={<Mail size={16} />}
-                label="E-mail"
-                value={profile.email}
-                href={`mailto:${profile.email}`}
-              />
-              <ContactRow
-                icon={<Instagram size={16} />}
-                label="Instagram"
-                value={profile.handleIg}
-                href={profile.igUrl}
-              />
-              <ContactRow
-                icon={<Linkedin size={16} />}
-                label="LinkedIn"
-                value="/in/lucas-araújo-baldi"
-                href={profile.linkedin}
-              />
-            </div>
-          </div>
-        </GlassCard>
-
-        <div className="mt-10 flex items-center justify-between flex-wrap gap-4 text-xs text-white/40">
-          <div>© {new Date().getFullYear()} {profile.name}. Feito com café e Framer.</div>
-          <div className="font-mono">v1 · liquid glass</div>
+    <footer
+      id="contato"
+      className="mt-28 md:mt-40 bg-accent text-accent-ink px-4 md:px-6 pt-16 md:pt-24 pb-5 scroll-mt-0"
+    >
+      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+        <div className="label flex items-center gap-2">
+          <span className="text-base leading-none">↳</span> Tem um projeto em mente?
         </div>
+        <p className="text-base md:text-lg leading-snug max-w-[30ch]">
+          Marketing, design e estratégia com IA. Do roteiro à ativação, bora
+          tirar a ideia do papel.
+        </p>
+      </div>
+
+      <a
+        href={`mailto:${profile.email}`}
+        className="group mt-8 md:mt-4 inline-flex items-center gap-4 md:gap-8"
+      >
+        <span className="font-display uppercase whitespace-nowrap text-[18vw] md:text-[13vw] leading-[0.85]">
+          Let&apos;s talk
+        </span>
+        <ArrowUpRight
+          strokeWidth={1.5}
+          className="w-[12vw] h-[12vw] md:w-[7vw] md:h-[7vw] transition-transform duration-300 group-hover:translate-x-2 group-hover:-translate-y-2"
+        />
+      </a>
+
+      {/* Dois caminhos: comigo ou com a agência */}
+      <div className="mt-10 grid md:grid-cols-2 gap-3">
+        {contacts.map((e) => (
+          <a
+            key={e.href}
+            href={e.href}
+            {...(e.whatsapp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            className="group border border-accent-ink p-5 md:p-6 flex items-end justify-between gap-4 hover:bg-accent-ink hover:text-accent transition-colors"
+          >
+            <div className="min-w-0">
+              <div className="label text-[11px]">{e.kind}</div>
+              <div className="mt-1 text-sm opacity-70">{e.note}</div>
+              <div className="mt-4 text-[15px] sm:text-lg md:text-2xl font-medium break-words flex items-center gap-2.5">
+                {e.whatsapp && <WhatsAppIcon className="w-[1em] h-[1em] shrink-0" />}
+                {e.label}
+              </div>
+            </div>
+            <ArrowUpRight size={24} className="shrink-0" />
+          </a>
+        ))}
+      </div>
+
+      <div className="mt-16 pt-4 border-t border-accent-ink/40 grid grid-cols-2 md:grid-cols-4 gap-8 text-[15px] md:text-base">
+        <Col title="Páginas">
+          <Link href="/#top">Home</Link>
+          <Link href="/#projetos">Projetos</Link>
+          <Link href="/#sobre">Sobre</Link>
+          <Link href="/#experiencias">Experiências</Link>
+        </Col>
+        <Col title="Social">
+          <a href={profile.igUrl} target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href={profile.spotify} target="_blank" rel="noopener noreferrer">Spotify</a>
+        </Col>
+        <Col title="Contato">
+          <a href={`mailto:${profile.email}`} className="break-all">{profile.email}</a>
+          <a href={`mailto:${profile.emailWork}`} className="break-all">{profile.emailWork}</a>
+          <a href={profile.whatsapp} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5">
+            <WhatsAppIcon className="w-4 h-4 shrink-0" /> {profile.phone}
+          </a>
+        </Col>
+        <Col title="Base">
+          <span>De {profile.hometown}, SP</span>
+          <span>Atendo o Brasil todo</span>
+          <span>
+            Agora <LocalTime />
+          </span>
+        </Col>
+      </div>
+
+      <BigName className="mt-16 md:mt-24" dotClassName="text-bg" />
+
+      <div className="mt-4 pt-3 border-t border-accent-ink/40 flex justify-between label text-[11px]">
+        <span>© {new Date().getFullYear()} Lucas A. Baldi</span>
+        <a href="#top" className="hover:underline">
+          Voltar ao topo ↑
+        </a>
       </div>
     </footer>
   );
 }
 
-function ContactRow({
-  icon,
-  label,
-  value,
-  href,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-  href: string;
-}) {
+function Col({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="glass-dark rounded-xl p-3 md:p-4 flex items-center justify-between gap-3 hover:border-accent/40 transition-colors group"
-    >
-      <div className="flex items-center gap-3 min-w-0 flex-1">
-        <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-accent flex-shrink-0">
-          {icon}
-        </div>
-        <div className="min-w-0 flex-1">
-          <div className="text-[10px] uppercase tracking-widest text-white/40">
-            {label}
-          </div>
-          <div className="text-xs md:text-sm text-white/90 truncate">
-            {value}
-          </div>
-        </div>
-      </div>
-      <ArrowUpRight
-        size={16}
-        className="text-white/40 group-hover:text-accent group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all flex-shrink-0"
-      />
-    </a>
+    <div className="flex flex-col gap-1 [&_a:hover]:underline">
+      <div className="label text-[11px] opacity-60 mb-1">{title}</div>
+      {children}
+    </div>
   );
 }

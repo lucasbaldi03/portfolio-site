@@ -1,11 +1,12 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import Nav from "@/components/Nav";
+import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import Timeline from "@/components/Timeline";
-import Portfolio from "@/components/Portfolio";
-import Personal from "@/components/Personal";
+import Projects from "@/components/Projects";
+import About from "@/components/About";
+import Experiences from "@/components/Experiences";
+import { Curiosities, PersonalAbout } from "@/components/Personal";
 import Footer from "@/components/Footer";
 import { useMode } from "@/lib/mode";
 
@@ -14,32 +15,30 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen">
-      <Nav />
+      <Header />
       <Hero />
 
       <AnimatePresence mode="wait">
-        {mode === "prof" ? (
-          <motion.div
-            key="prof"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
-          >
-            <Timeline />
-            <Portfolio />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="pessoal"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
-          >
-            <Personal />
-          </motion.div>
-        )}
+        <motion.div
+          key={mode}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.35 }}
+        >
+          {mode === "prof" ? (
+            <>
+              <Projects />
+              <About />
+              <Experiences />
+            </>
+          ) : (
+            <>
+              <Curiosities />
+              <PersonalAbout />
+            </>
+          )}
+        </motion.div>
       </AnimatePresence>
 
       <Footer />

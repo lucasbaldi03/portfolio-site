@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from "react";
 
 export type Mode = "prof" | "pessoal";
 
@@ -14,6 +20,13 @@ const ModeCtx = createContext<Ctx | null>(null);
 
 export function ModeProvider({ children }: { children: ReactNode }) {
   const [mode, setMode] = useState<Mode>("prof");
+
+  // O tema (cores) segue o modo; o provider fica no layout, então o modo
+  // continua o mesmo ao navegar entre home e páginas de projeto
+  useEffect(() => {
+    document.documentElement.dataset.mode = mode;
+  }, [mode]);
+
   const toggle = () => setMode((m) => (m === "prof" ? "pessoal" : "prof"));
   return (
     <ModeCtx.Provider value={{ mode, setMode, toggle }}>
