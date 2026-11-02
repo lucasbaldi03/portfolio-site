@@ -160,6 +160,18 @@ export type Article = {
   chapters: ArticleChapter[];
 };
 
+// uma tela do fluxo de um app: número da etapa, nome curto e o que acontece nela
+export type FlowStep = { src: string; step: string; title: string; label: string; bar?: string };
+
+// press kit em 3D: as quatro imagens recortadas e o texto de cada item
+export type Kit = {
+  closed: string;
+  open: string;
+  card: string;
+  controller: string;
+  details: { title: string; body: string }[];
+};
+
 export type Project = {
   slug: string;
   year: string;
@@ -175,6 +187,22 @@ export type Project = {
   article?: Article;
   // fotos soltas abaixo da imagem principal, para projetos sem matéria
   gallery?: ArticleImage[];
+  // app de celular: tela simples com o texto à esquerda e o vídeo num mockup à direita
+  phone?: { src: string; poster: string; caption?: string };
+  // vídeo horizontal com som, tocado no player abaixo do texto (mesma tela simples)
+  film?: { src: string; poster: string; caption?: string };
+  // o que eu fiz no projeto, em lista
+  role?: string[];
+  // ferramentas usadas, mostradas com o símbolo de cada uma
+  tools?: string[];
+  // telas do app passando no celular, com a lista de etapas ao lado
+  flow?: FlowStep[];
+  // blocos de imagens em pé (cenários, molduras, artes) abaixo do conteúdo
+  sets?: { label: string; images: ArticleImage[] }[];
+  // press kit interativo em 3D
+  kit?: Kit;
+  // vídeo do YouTube embutido, com uma foto ao lado
+  youtube?: { id: string; title: string; caption: string; photo?: ArticleImage };
   // projetos de uma vitrine (ex.: Hero Base) saem da galeria principal e
   // aparecem só dentro da página da vitrine
   group?: string;
@@ -208,9 +236,9 @@ export const showcases: Showcase[] = [
     cover: "/portfolio/beplus/capa.jpg",
     intro: [
       "Direção criativa e produção digital com IA na BePlus, cocriando com a agência: roteiro, direção de arte e criação de assets para marcas grandes.",
+      "Aqui ficam os cases desse período. Clique em um para ler.",
     ],
-    featured: [],
-    soon: true,
+    featured: ["redbull-icons", "coca-lata-gol", "vult", "aivx", "bradesco-tiradentes"],
   },
   {
     slug: "hero-base",
@@ -249,6 +277,170 @@ export const showcases: Showcase[] = [
 ];
 
 export const projects: Project[] = [
+  {
+    slug: "redbull-icons",
+    year: "2026",
+    title: "Red Bull Icons",
+    client: "Red Bull",
+    category: "Press kit · Evento",
+    group: "beplus",
+    cover: "/portfolio/beplus/redbull/capa-4x5.jpg",
+    description:
+      "Projeto da Red Bull com creators: 25 influenciadores convidados viram cartas Red Bull Icons e desbloqueiam os próprios atributos, Performance, QI, Comunicação e Resenha, em desafios no CPD do Red Bull Bragantino. A BePlus cuidou da produção do evento, do convite ao press kit, às camisetas e às cartas. Ajudei a coordenar o evento desde o início, da apresentação pra Red Bull à concepção das gamificações e à produção. O que acompanhei mais de perto foi o press kit enviado aos influenciadores.",
+    role: [
+      "Coordenação do evento, desde a apresentação pra Red Bull",
+      "Concepção das ideias das gamificações",
+      "Apoio na produção do evento",
+      "Ideia e criação do press kit: a caixa que abre em etapas",
+      "Cotação, escolha e alinhamento com o fornecedor do kit",
+      "Protótipo, desenvolvimento e entrega dos kits",
+    ],
+    tools: ["Claude", "Gemini", "Nano Banana", "ChatGPT"],
+    kit: {
+      closed: "/portfolio/beplus/redbull/caixa-fechada.webp",
+      open: "/portfolio/beplus/redbull/kit-aberto.webp",
+      card: "/portfolio/beplus/redbull/carta.webp",
+      controller: "/portfolio/beplus/redbull/controle.webp",
+      details: [
+        {
+          title: "A caixa",
+          body: "Uma caixa com gaveta, pensada pra ser aberta em etapas. Na tampa, uma mensagem com o nome do influenciador; em cima, o controle e a lata de Red Bull; na gaveta, a carta.",
+        },
+        {
+          title: "A carta",
+          body: "A carta Red Bull Icons do creator, em A4 com 2 cm de espessura e letras em alto relevo. Ela chega sem os números: os atributos ficam bloqueados até os desafios, e um QR code abre a versão digital.",
+        },
+        {
+          title: "O controle",
+          body: "Um controle de PS5 personalizado nas cores do Red Bull Icons, azul-marinho e dourado, com a arte gravada na frente.",
+        },
+      ],
+    },
+    youtube: {
+      id: "-mO4zlTPg4g",
+      title: "EA FC 27 vs vida real, no canal do Julio Cocielo",
+      caption: "O vídeo do desafio no canal do Julio Cocielo, feito pelo time de audiovisual da BePlus.",
+      photo: { src: "/portfolio/beplus/redbull/kit-real-cocielo.jpg", w: 1600, h: 1197, alt: "Press kit real aberto, com a carta do Julio Cocielo na gaveta", caption: "O kit real, com a carta do Cocielo na gaveta." },
+    },
+  },
+  {
+    slug: "coca-lata-gol",
+    year: "2026",
+    title: "Lata que Grita Gol",
+    client: "Coca-Cola",
+    category: "Vídeo case · IA",
+    group: "beplus",
+    cover: "/portfolio/beplus/coca/capa-4x5.jpg",
+    description:
+      "Vídeo case da campanha da lata da Coca-Cola que grita gol na Copa do Mundo, feito pro FanClub inscrever o projeto em premiações. O filme resume a campanha, da ideia da lata à engenharia, ao conteúdo e à repercussão pelo Brasil.",
+    film: {
+      src: "/portfolio/beplus/coca/video.mp4",
+      poster: "/portfolio/beplus/coca/video-poster.jpg",
+      caption: "O vídeo case. Roteiro, narração, storyboard e animações feitos por mim; edição e montagem do editor.",
+    },
+    role: [
+      "Roteiro e tom da comunicação",
+      "Texto da narração do locutor",
+      "Storyboard de todas as cenas",
+      "Criação das imagens com IA",
+      "Animação de todas as cenas com IA",
+    ],
+    tools: ["Claude", "Midjourney", "Nano Banana Pro", "Seedance"],
+  },
+  {
+    slug: "vult",
+    year: "2026",
+    title: "Vult",
+    client: "Vult",
+    category: "Ativação · App",
+    group: "beplus",
+    cover: "/portfolio/beplus/vult/capa-4x5.jpg",
+    description:
+      "Web app de ativação para o estande da Vult num evento presencial. O visitante conhece a marca e passa pelas linhas de produto para cabelo; depois vai para a gameplay, onde tem 30 segundos para coletar os produtos que aparecem na tela e ganhar um brinde no estande.",
+    phone: {
+      src: "/portfolio/beplus/vult/app.mp4",
+      poster: "/portfolio/beplus/vult/app-poster.jpg",
+      caption: "O fluxo do app gravado no celular: marca, linhas, jogo e resultado.",
+    },
+    role: [
+      "Alinhamento com o cliente",
+      "Desenvolvimento das telas e do layout",
+      "Experiência do usuário de todas as telas",
+      "Estratégia do game: a dinâmica e como ele funciona",
+      "Parceria com o dev, que programou o web app",
+    ],
+    tools: ["Claude", "Gemini", "Nano Banana", "Seedance 2.5"],
+  },
+  {
+    slug: "aivx",
+    year: "2026",
+    title: "AIVX",
+    client: "AIVX",
+    category: "Vídeo manifesto · IA",
+    group: "beplus",
+    cover: "/portfolio/beplus/aivx/capa-4x5.jpg",
+    description:
+      "Vídeo manifesto de lançamento da AIVX, empresa nova no mercado de pedágio inteligente. O filme apresenta a marca e a tecnologia de pedágio sem barreiras, e todas as imagens e cenas foram feitas com inteligência artificial.",
+    film: {
+      src: "/portfolio/beplus/aivx/manifesto.mp4",
+      poster: "/portfolio/beplus/aivx/manifesto-poster.jpg",
+      caption: "O manifesto da AIVX, com imagens e vídeos 100% feitos com IA.",
+    },
+    role: [
+      "Roteiro narrado",
+      "Criação das imagens com IA",
+      "Criação dos vídeos com IA",
+    ],
+    tools: ["Claude", "Gemini", "Nano Banana", "Seedance 2.5"],
+  },
+  {
+    slug: "bradesco-tiradentes",
+    year: "2026",
+    title: "Bradesco × Tiradentes",
+    client: "Bradesco",
+    category: "Ativação · Web app",
+    group: "beplus",
+    cover: "/portfolio/beplus/bradesco/capa-4x5.jpg",
+    description:
+      "Web app de ativação do Bradesco no 29º Festival Cultura e Gastronomia de Tiradentes 2026. O visitante faz o cadastro, escolhe uma frase, tira a foto e a IA coloca ele num dos cenários do festival. A lembrança fica pronta em cerca de 20 segundos e chega no WhatsApp, e o Bradesco sai com o lead captado.",
+    tools: ["Claude", "Gemini", "Nano Banana", "Seedance 2.5"],
+    flow: [
+      { src: "/portfolio/beplus/bradesco/telas/01-cadastro.jpg", step: "01", title: "Cadastro", label: "captação do lead" },
+      { src: "/portfolio/beplus/bradesco/telas/02-ja-tem.jpg", step: "1b", title: "Já tem cadastro", label: "só o CPF pra confirmar" },
+      { src: "/portfolio/beplus/bradesco/telas/03-erro.jpg", step: "1c", title: "Erro no cadastro", label: "CPF já cadastrado", bar: "#7f7f7f" },
+      { src: "/portfolio/beplus/bradesco/telas/04-frase.jpg", step: "02", title: "Frase", label: "escolha da frase da arte" },
+      { src: "/portfolio/beplus/bradesco/telas/05-pessoas.jpg", step: "03", title: "Pessoas", label: "1 ou 2 pessoas na foto" },
+      { src: "/portfolio/beplus/bradesco/telas/06-foto1.jpg", step: "04", title: "Foto · pessoa 1", label: "captura do 1º rosto" },
+      { src: "/portfolio/beplus/bradesco/telas/07-foto2.jpg", step: "4b", title: "Foto · pessoa 2", label: "captura do 2º rosto" },
+      { src: "/portfolio/beplus/bradesco/telas/08-gerando.jpg", step: "05", title: "Gerando", label: "a IA monta a imagem (~20 s)" },
+      { src: "/portfolio/beplus/bradesco/telas/09-resultado.jpg", step: "06", title: "Resultado", label: "entrega e compartilhamento" },
+      { src: "/portfolio/beplus/bradesco/telas/10-whatsapp.jpg", step: "07", title: "Chegada", label: "a foto no WhatsApp", bar: "#085d56" },
+    ],
+    sets: [
+      {
+        label: "Os cenários",
+        images: [
+          { src: "/portfolio/beplus/bradesco/cenario-1p.jpg", w: 959, h: 1640, alt: "Cenário da varanda em Tiradentes para uma pessoa", caption: "Cenário para 1 pessoa." },
+          { src: "/portfolio/beplus/bradesco/cenario-2p.jpg", w: 1143, h: 2048, alt: "Cenário da varanda em Tiradentes para duas pessoas", caption: "Cenário para 2 pessoas." },
+        ],
+      },
+      {
+        label: "As molduras",
+        images: [
+          { src: "/portfolio/beplus/bradesco/moldura-prosa.jpg", w: 1080, h: 1920, alt: "Moldura Tiradentes + Bradesco, uma prosa boa", caption: "Tiradentes + Bradesco, uma prosa boa." },
+          { src: "/portfolio/beplus/bradesco/moldura-cadim.jpg", w: 1080, h: 1920, alt: "Moldura Um cadim de Bradesco, um tantão de Tiradentes", caption: "Um cadim de Bradesco, um tantão de Tiradentes." },
+          { src: "/portfolio/beplus/bradesco/moldura-bao-demais.jpg", w: 1080, h: 1920, alt: "Moldura Bão demais da conta", caption: "Bão demais da conta!" },
+        ],
+      },
+      {
+        label: "O resultado",
+        images: [
+          { src: "/portfolio/beplus/bradesco/arte-1p.jpg", w: 868, h: 1544, alt: "Arte final com uma pessoa no cenário", caption: "Arte final com 1 pessoa." },
+          { src: "/portfolio/beplus/bradesco/arte-2p.jpg", w: 910, h: 1624, alt: "Arte final com duas pessoas no cenário", caption: "Arte final com 2 pessoas." },
+        ],
+      },
+    ],
+  },
   {
     slug: "players-bank",
     year: "2022—23",
@@ -1012,7 +1204,11 @@ export const galleryItems: GalleryItem[] = (() => {
     if (showcase) items.push({ kind: "showcase", showcase });
     placed.add(p.group);
   }
-  return items;
+  // ordem da home: do mais recente pro mais antigo; o que não estiver na lista vai pro fim
+  const order = ["beplus", "hospital-evangelico", "hero-base", "players-bank"];
+  const key = (it: GalleryItem) => order.indexOf(it.kind === "showcase" ? it.showcase.slug : it.project.slug);
+  const rank = (it: GalleryItem) => (key(it) < 0 ? order.length : key(it));
+  return items.sort((a, b) => rank(a) - rank(b));
 })();
 
 export const groupProjects = (group: string) => {

@@ -109,3 +109,15 @@ button,
 label {
   cursor: url("/cursor-cafe-fumaca.svg") 4 13, pointer;
 }
+
+/* barra de progresso da etapa no fluxo de app (FlowPhone) */
+@keyframes flow-progress {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* flutuação leve dos itens do press kit (KitStage) */
+@keyframes kit-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
