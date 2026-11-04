@@ -1,0 +1,7 @@
+/beplus
+._*
+.DS_Store
+/node_modules
+/.next
+*.tsbuildinfo
+/Pórtico Futurista Hero Experience.png
