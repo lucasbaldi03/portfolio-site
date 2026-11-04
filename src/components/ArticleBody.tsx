@@ -39,9 +39,9 @@ export default function ArticleBody({
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, delay: 0.45, ease }}
-        className="mt-12 md:mt-16"
+        className="mt-12 md:mt-16 md:max-w-[min(1170px,130vh)]"
       >
-        <Figure img={article.hero} sizes="100vw" priority />
+        <Figure img={article.hero} sizes="(min-width: 768px) 1170px, 100vw" priority />
       </motion.figure>
 
       {/* contexto + números */}
@@ -101,24 +101,24 @@ export default function ArticleBody({
 }
 
 function Chapter({ chapter: c }: { chapter: ArticleChapter }) {
-  // retrato/quadrada se agrupa (até 3 lado a lado); horizontal ocupa a largura toda
+  // retrato/quadrada se agrupa até 3 lado a lado, horizontal comum em par;
+  // panorâmica (mais de 2:1) fica sozinha e não quebra o par que está se formando
+  const kind = (img: ArticleImage) =>
+    img.h >= img.w * 0.85 ? "portrait" : img.w >= img.h * 2 ? "pano" : "land";
   const rows: ArticleImage[][] = [];
-  let pair: ArticleImage[] = [];
+  const open: Record<string, ArticleImage[]> = { portrait: [], land: [] };
   for (const img of c.images ?? []) {
     if (c.plan) break;
-    if (img.h >= img.w * 0.85) {
-      pair.push(img);
-      if (pair.length === 3) {
-        rows.push(pair);
-        pair = [];
-      }
-    } else {
-      if (pair.length) rows.push(pair);
-      pair = [];
+    const k = kind(img);
+    if (k === "pano") {
       rows.push([img]);
+      continue;
     }
+    const buf = open[k];
+    buf.push(img);
+    if (buf.length === (k === "portrait" ? 3 : 2)) rows.push(buf.splice(0));
   }
-  if (pair.length) rows.push(pair);
+  for (const buf of Object.values(open)) if (buf.length) rows.push(buf);
 
   return (
     <section className="mt-24 md:mt-36">
@@ -169,15 +169,15 @@ function Chapter({ chapter: c }: { chapter: ArticleChapter }) {
             ))}
           </div>
           {c.images?.[0] && (
-            <motion.figure {...rise} className="md:col-span-5">
+            <motion.figure {...rise} className="md:col-span-5 md:max-w-[440px]">
               <Figure img={c.images[0]} sizes="(min-width: 768px) 40vw, 100vw" />
             </motion.figure>
           )}
         </div>
       ) : (
-        <div className="mt-12 space-y-3">
+        <div className="mt-12 space-y-3 md:max-w-[1170px]">
           {c.video && (
-            <motion.figure {...rise}>
+            <motion.figure {...rise} className="md:max-w-[min(1170px,115vh)]">
               <video
                 src={c.video.src}
                 poster={c.video.poster}
@@ -203,29 +203,29 @@ function Chapter({ chapter: c }: { chapter: ArticleChapter }) {
               )}
             </motion.figure>
           )}
-          {rows.map((row, i) => (
-            <div
-              key={i}
-              className={
-                row.length > 1 || row[0].h >= row[0].w * 0.85
-                  ? `grid gap-3 ${row.length === 3 ? "md:grid-cols-3" : "md:grid-cols-2"}`
-                  : ""
-              }
-            >
-              {row.map((img) => {
-                const grouped = row.length > 1 || img.h >= img.w * 0.85;
-                return (
-                <motion.figure key={img.src} {...rise}>
-                  <Figure
-                    img={img}
-                    sizes={grouped ? "(min-width: 768px) 33vw, 100vw" : "100vw"}
-                    fill={grouped}
-                  />
+          {rows.map((row, i) => {
+            const k = kind(row[0]);
+            // horizontal sozinha não estica na largura toda
+            if (row.length === 1 && k !== "portrait")
+              return (
+                <motion.figure key={row[0].src} {...rise} className={k === "land" ? "md:max-w-[780px]" : ""}>
+                  <Figure img={row[0]} sizes="(min-width: 768px) 1170px, 100vw" />
                 </motion.figure>
-                );
-              })}
-            </div>
-          ))}
+              );
+            return (
+              <div key={i} className={`grid gap-3 ${k === "portrait" ? "md:grid-cols-3" : "md:grid-cols-2"}`}>
+                {row.map((img) => (
+                  <motion.figure key={img.src} {...rise}>
+                    <Figure
+                      img={img}
+                      sizes={k === "portrait" ? "(min-width: 768px) 390px, 100vw" : "(min-width: 768px) 585px, 100vw"}
+                      fill={k}
+                    />
+                  </motion.figure>
+                ))}
+              </div>
+            );
+          })}
         </div>
       )}
     </section>
@@ -241,13 +241,13 @@ function Figure({
   img: ArticleImage;
   sizes: string;
   priority?: boolean;
-  fill?: boolean;
+  fill?: "portrait" | "land" | "pano";
 }) {
   return (
     <>
       {fill ? (
         // em grupo: mesma altura, corte pelo centro
-        <div className="relative aspect-[4/5] overflow-hidden bg-[#111]">
+        <div className={`relative overflow-hidden bg-[#111] ${fill === "portrait" ? "aspect-[4/5]" : "aspect-[3/2]"}`}>
           <Image src={img.src} alt={img.alt} fill sizes={sizes} className="object-cover" />
         </div>
       ) : (

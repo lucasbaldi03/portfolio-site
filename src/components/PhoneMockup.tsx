@@ -17,7 +17,7 @@ export default function PhoneMockup({
 }) {
   const ink = light ? "bg-black/80" : "bg-white/80";
   return (
-    <div className="relative w-[min(78vw,320px)] md:w-[340px]">
+    <div className="relative w-[min(72vw,290px)] md:w-[280px]">
       {/* botões laterais */}
       <span className="absolute -left-[3px] top-[18%] h-10 w-[3px] rounded-l bg-[#2a2a2a]" />
       <span className="absolute -left-[3px] top-[28%] h-16 w-[3px] rounded-l bg-[#2a2a2a]" />

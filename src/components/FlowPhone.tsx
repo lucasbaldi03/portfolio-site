@@ -60,7 +60,7 @@ export default function FlowPhone({ steps }: { steps: FlowStep[] }) {
                 src={s.src}
                 alt={`${s.step} · ${s.title}`}
                 fill
-                sizes="340px"
+                sizes="280px"
                 priority={n < 2}
                 className={`object-cover object-top transition-opacity duration-500 ${n === i ? "opacity-100" : "opacity-0"}`}
               />

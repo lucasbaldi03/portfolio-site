@@ -56,7 +56,7 @@ export default function KitStage({ kit }: { kit: Kit }) {
   return (
     <div>
       <div
-        className="relative overflow-hidden h-[520px] md:h-[680px] select-none touch-pan-y cursor-grab active:cursor-grabbing [perspective:1400px]"
+        className="relative overflow-hidden h-[460px] md:h-[min(600px,72vh)] select-none touch-pan-y cursor-grab active:cursor-grabbing [perspective:1400px]"
         onPointerMove={onMove}
         onPointerDown={onDown}
         onPointerUp={onUp}
