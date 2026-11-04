@@ -5,3 +5,4 @@
 /.next
 *.tsbuildinfo
 /Pórtico Futurista Hero Experience.png
+.env*
